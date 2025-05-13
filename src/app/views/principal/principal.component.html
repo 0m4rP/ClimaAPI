@@ -1,0 +1,27 @@
+<app-barra></app-barra>
+
+<div class="clima-container">
+    <div class="container mt-3 buscar-container">
+        <input type="text" name="buscar" id="buscar" [(ngModel)]="buscarCiudad">
+        <button type="button" (click)="traerClimaPorCiudad()">Buscar Ciudad</button>
+    </div>
+
+    <div class="clima-card" *ngIf="climaData">
+        <h2>{{climaData.name}}</h2>
+        <p>{{climaData.sys.country}}</p>
+
+        <div>
+            <img [src]="'https://openweathermap.org/img/wn/' + climaData.weather[0].icon + '@2x.png'">
+            <p>{{climaData.weather[0].description}}</p>
+        </div>
+
+        <div>
+            <p>Temperatura: {{climaData.main.temp}}</p>
+            <p>Presion: {{climaData.main.pressure}}</p>
+            <p>Humedad: {{climaData.main.humidity}}</p>
+            <p>Velocidad: {{climaData.wind.speed}}</p>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
