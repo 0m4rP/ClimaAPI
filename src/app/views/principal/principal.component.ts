@@ -3,13 +3,13 @@ import { BarraComponent } from "../predeterminados/barra/barra.component";
 import { FooterComponent } from "../predeterminados/footer/footer.component";
 import { ClimaAPIService } from '../../services/climaAPI/clima-api.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgModel } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms'; 
+import { VerClimaComponent } from '../ver-clima/ver-clima.component';
 
 
 @Component({
   selector: 'app-principal',
-  standalone: true,
-  imports: [BarraComponent, FooterComponent, CommonModule, FormsModule],
+  imports: [BarraComponent, FooterComponent, CommonModule, FormsModule, VerClimaComponent],
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.css'
 })
@@ -21,12 +21,28 @@ private climaAPI = inject(ClimaAPIService);
 
 climaData: any;
 buscarCiudad: string = '';
+isLoading: boolean = false;
+forecastData: any;
 
 traerClimaPorCiudad(){
-  this.climaAPI.getCityBySearch(this.buscarCiudad).subscribe({
+  if(this.buscarCiudad.trim()){
+    this.isLoading = true;
+    this.climaAPI.getCityBySearch(this.buscarCiudad).subscribe({
     next: (data) => {
       this.climaData = data;
-      console.log(this.climaData);
+      this.isLoading = false;
+      this.traerForcastPorCiudad(this.buscarCiudad);
+    },
+    error: (err) => console.error('hubo un error: ', err)
+  })
+  }
+}
+
+traerForcastPorCiudad(city: string){
+  this.climaAPI.getGraphicBySearch(city).subscribe({
+    next: (data) => {
+      this.forecastData = data;
+      console.log('datos de pronostico: ', data);
     },
     error: (err) => console.error('hubo un error: ', err)
   })

@@ -1,0 +1,6 @@
+.chart-container{
+    position: relative;
+    margin: 20px auto;
+    max-width: 800px;
+    height: 400px;
+}

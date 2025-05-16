@@ -22,6 +22,10 @@
             <p>Velocidad: {{climaData.wind.speed}}</p>
         </div>
     </div>
+
+    <app-ver-clima *ngIf="forecastData" [forecastData]="forecastData"></app-ver-clima>
+
 </div>
+
 
 <app-footer></app-footer>
