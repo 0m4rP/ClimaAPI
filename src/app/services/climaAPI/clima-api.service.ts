@@ -11,7 +11,7 @@ export class ClimaAPIService {
 
   //url de al api
   private urlAPI = 'https://api.openweathermap.org/data/2.5/';
-  private key = '5082f6699568313f6b1fdcd3c6db5c10'
+  private key = '';
   
   constructor() { }
 
